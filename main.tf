@@ -109,19 +109,43 @@ resource "aws_lb_listener_rule" "main" {
   }
 
   dynamic "condition" {
-    for_each = [var.listener_conditions[count.index]]
+    #    for_each = [var.listener_conditions[count.index]]
+    #    for_each = var.listener_conditions[count.index]
+    for_each = var.listener_conditions[count.index]
     content {
+      #      host_header {
+      #        values = condition.value.field == "host_header" ? condition.value.values : null
       dynamic "host_header" {
-        for_each = lookup(condition.value, "host_header", null) != null ? [" using host header "] : []
+        #        for_each = lookup(condition.value, "host_header", null) != null ? [" using host header "] : []
+        #        for_each = lookup(condition[0], "field", null) != null ? [" using host header "] : []
+        #        for_each = condition[*].value.field
+        for_each = [
+          for i in condition[*].value.field : i
+          if i == "host-header"
+        ]
         content {
-          values = lookup(condition.value, "host_header")
+          values = condition.value.values
+          #          values = lookup(condition.value, "host_header")
+          #          values = lookup(condition[0], "values")
+          #          values = condition.value.field == "host_header" ? condition.value.values : null
         }
+
       }
 
       dynamic "path_pattern" {
-        for_each = lookup(condition.value, "path_pattern", null) != null ? [" using path pattern "] : []
+        #        for_each = lookup(condition.value, "path_pattern", null) != null ? [" using path pattern "] : []
+        #        for_each = lookup(condition[0], "field", null) != null ? [" using host header "] : []
+        #        for_each = condition[*]
+        for_each = [
+          for j in condition[*].value.field : j
+          if j == "path-pattern"
+        ]
+
         content {
-          values = lookup(condition.value, "path_pattern")
+          #          values = lookup(condition.value, "path_pattern")
+          #         values = lookup(condition[0], "values")
+          values = condition.value.values
+
         }
       }
     }
