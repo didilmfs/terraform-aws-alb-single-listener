@@ -1,6 +1,5 @@
 provider "aws" {
   region = "ap-southeast-1"
-  #  version = "1.14.1"
 }
 
 locals {
@@ -12,12 +11,10 @@ locals {
     {
       "field"  = "host-header"
       "values" = ["m.traveloka.com"]
-      #      "values" = "m.traveloka.com"
     },
     {
       "field"  = "path-pattern"
       "values" = ["/frontend/"]
-      #      "values" = "/frontend/"
     },
   ]
 
@@ -25,14 +22,12 @@ locals {
     {
       "field"  = "host-header"
       "values" = ["m.traveloka.com"]
-      #      "values" = "m.traveloka.com"
     }
   ]
   backend_canary_condition = [
     {
       "field"  = "path-pattern"
       "values" = ["/canary/"]
-      #      "values" = "/canary/"
     }
   ]
 
@@ -40,15 +35,8 @@ locals {
     {
       "field"  = "host-header"
       "values" = ["fpr.traveloka.com"]
-      #      "values" = "fpr.traveloka.com"
     }
   ]
-  #  frontend_condition = map("host-header",["m.traveloka.com"],"path-pattern", ["/frontend/"])
-
-  #  backend_canary_condition = map("path-pattern", ["/canary/"])
-
-  #  backend_default_condition = map("host-header", ["fpr.traveloka.com"])
-
 }
 
 module "random_fe" {
@@ -135,7 +123,7 @@ resource "aws_lb_target_group" "backend-canary" {
 
 module "alb-single-listener" {
   source                   = "../.."
-  lb_logs_s3_bucket_name   = "lb-logs-bucket"
+  lb_logs_s3_bucket_name   = "elb-logs"
   service_name             = local.service_name
   cluster_role             = "app"
   environment              = "production"
@@ -146,8 +134,6 @@ module "alb-single-listener" {
   lb_subnet_ids            = ["subnet-123abc", "subnet-456def", "subnet-789ghi", ]
 
   listener_conditions = tolist([local.frontend_condition, local.backend_canary_condition, local.backend_default_condition])
-  #  listener_conditions = list(local.frontend_condition2, local.backend_canary_condition, local.backend_default_condition)
-  #  listener_conditions = local.frontend_condition
   target_group_arns = [
     "${aws_lb_target_group.frontend.arn}",
     "${aws_lb_target_group.backend-canary.arn}",
