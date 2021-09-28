@@ -18,24 +18,18 @@ locals {
     },
   ]
 
-  frontend_condition2 = [
-    {
-      "field"  = "host-header"
-      "values" = ["m.traveloka.com"]
-    }
-  ]
   backend_canary_condition = [
     {
       "field"  = "path-pattern"
       "values" = ["/canary/"]
-    }
+    },
   ]
 
   backend_default_condition = [
     {
       "field"  = "host-header"
       "values" = ["fpr.traveloka.com"]
-    }
+    },
   ]
 }
 
