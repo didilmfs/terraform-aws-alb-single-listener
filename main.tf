@@ -112,10 +112,7 @@ resource "aws_lb_listener_rule" "main" {
     for_each = var.listener_conditions[count.index]
     content {
       dynamic "host_header" {
-        for_each = [
-          for i in condition[*].value.field : i
-          if i == "host-header"
-        ]
+        for_each = condition.value.field == "host-header" ? [condition.value.field] : []
         content {
           values = condition.value.values
         }
@@ -123,10 +120,7 @@ resource "aws_lb_listener_rule" "main" {
       }
 
       dynamic "path_pattern" {
-        for_each = [
-          for j in condition[*].value.field : j
-          if j == "path-pattern"
-        ]
+        for_each = condition.value.field == "path-pattern" ? [condition.value.field] : []
         content {
           values = condition.value.values
 
