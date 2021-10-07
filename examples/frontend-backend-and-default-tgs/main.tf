@@ -34,16 +34,16 @@ locals {
 }
 
 module "random_fe" {
-  source = "github.com/traveloka/terraform-aws-resource-naming.git?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming.git?ref=v0.20.0"
 
-  name_prefix   = "${format("%s-%s", local.service_name, "fe")}"
+  name_prefix   = format("%s-%s", local.service_name, "fe")
   resource_type = "lb_target_group"
 }
 
 module "random_be" {
-  source = "github.com/traveloka/terraform-aws-resource-naming.git?ref=v0.19.1"
+  source = "github.com/traveloka/terraform-aws-resource-naming.git?ref=v0.20.0"
 
-  name_prefix   = "${format("%s-%s", local.service_name, "app")}"
+  name_prefix   = format("%s-%s", local.service_name, "app")
   resource_type = "lb_target_group"
 }
 
@@ -128,9 +128,9 @@ module "alb-single-listener" {
   lb_subnet_ids            = ["subnet-123abc", "subnet-456def", "subnet-789ghi", ]
 
   listener_rules = {
-    1 = {target_group_arn=aws_lb_target_group.frontend.arn, conditions=local.frontend_conditions},
-    10 = {target_group_arn=null, conditions=local.backend_default_conditions},
-    99 = {target_group_arn=aws_lb_target_group.backend-canary.arn, conditions=local.backend_canary_conditions},
+    1  = { target_group_arn = aws_lb_target_group.frontend.arn, conditions = local.frontend_conditions },
+    10 = { target_group_arn = null, conditions = local.backend_default_conditions },
+    99 = { target_group_arn = aws_lb_target_group.backend-canary.arn, conditions = local.backend_canary_conditions },
   }
-  vpc_id                    = "${local.vpc_id}"
+  vpc_id = local.vpc_id
 }

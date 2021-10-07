@@ -1,6 +1,6 @@
 # terraform-aws-alb-single-listener
 
-[![Terraform Version](https://img.shields.io/badge/Terraform%20Version->=0.12.0,<=0.12.31-blue.svg)](https://releases.hashicorp.com/terraform/)
+[![Terraform Version](https://img.shields.io/badge/Terraform%20Version->=0.13.0,<=0.13.7-blue.svg)](https://releases.hashicorp.com/terraform/)
 [![Release](https://img.shields.io/github/release/traveloka/terraform-aws-alb-single-listener.svg)](https://github.com/traveloka/terraform-aws-alb-single-listener/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/traveloka/terraform-aws-alb-single-listener.svg)](https://github.com/traveloka/terraform-aws-alb-single-listener/commits/master)
 [![Issues](https://img.shields.io/github/issues/traveloka/terraform-aws-alb-single-listener.svg)](https://github.com/traveloka/terraform-aws-alb-single-listener/issues)
@@ -10,19 +10,20 @@
 
 ## Table of Content
 
-- [Description](#description)
-- [Examples](#examples)
-- [Terraform Version](#terraform-version)
-- [Requirements](#requirements)
-- [Providers](#providers)
-- [Modules](#modules-1)
-- [Resources](#resources)
-- [Inputs](#inputs)
-- [Outputs](#outputs)
-- [Contributing](#Contributing)
-- [Authors](#authors)
-- [License](#License)
-
+* [terraform-aws-alb-single-listener](#terraform-aws-alb-single-listener)
+   * [Table of Content](#table-of-content)
+   * [Description](#description)
+   * [Examples](#examples)
+   * [Terraform Version](#terraform-version)
+   * [Requirements](#requirements)
+   * [Providers](#providers)
+   * [Modules](#modules)
+   * [Resources](#resources)
+   * [Inputs](#inputs)
+   * [Outputs](#outputs)
+   * [Contributing](#contributing)
+   * [Authors](#authors)
+   * [License](#license)
 
 ## Description
 A terraform module which provisions a DNS record that points to an Application LB with a single listener
@@ -35,12 +36,14 @@ A terraform module which provisions a DNS record that points to an Application L
 ## Terraform Version
 
 This module was created on 4/17/2018.
-The latest stable version of Terraform which this module tested working is Terraform 0.12.31 on 27/09/2021.
+The latest stable version of Terraform which this module tested working is Terraform 0.13.7 on 07/10/2021.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
 
 ## Providers
 
@@ -52,8 +55,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_random_lb"></a> [random\_lb](#module\_random\_lb) | github.com/traveloka/terraform-aws-resource-naming.git | v0.19.1 |
-| <a name="module_random_tg"></a> [random\_tg](#module\_random\_tg) | github.com/traveloka/terraform-aws-resource-naming.git | v0.19.1 |
+| <a name="module_random_lb"></a> [random\_lb](#module\_random\_lb) | github.com/traveloka/terraform-aws-resource-naming.git | v0.20.0 |
+| <a name="module_random_tg"></a> [random\_tg](#module\_random\_tg) | github.com/traveloka/terraform-aws-resource-naming.git | v0.20.0 |
 
 ## Resources
 
