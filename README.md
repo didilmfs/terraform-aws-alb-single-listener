@@ -1,6 +1,6 @@
 # terraform-aws-alb-single-listener
 
-[![Terraform Version](https://img.shields.io/badge/Terraform%20Version->=0.12.0,<=0.12.31-blue.svg)](https://releases.hashicorp.com/terraform/)
+[![Terraform Version](https://img.shields.io/badge/Terraform%20Version->=0.13.0,<=0.13.7-blue.svg)](https://releases.hashicorp.com/terraform/)
 [![Release](https://img.shields.io/github/release/traveloka/terraform-aws-alb-single-listener.svg)](https://github.com/traveloka/terraform-aws-alb-single-listener/releases)
 [![Last Commit](https://img.shields.io/github/last-commit/traveloka/terraform-aws-alb-single-listener.svg)](https://github.com/traveloka/terraform-aws-alb-single-listener/commits/master)
 [![Issues](https://img.shields.io/github/issues/traveloka/terraform-aws-alb-single-listener.svg)](https://github.com/traveloka/terraform-aws-alb-single-listener/issues)
@@ -10,19 +10,20 @@
 
 ## Table of Content
 
-- [Description](#description)
-- [Examples](#examples)
-- [Terraform Version](#terraform-version)
-- [Requirements](#requirements)
-- [Providers](#providers)
-- [Modules](#modules-1)
-- [Resources](#resources)
-- [Inputs](#inputs)
-- [Outputs](#outputs)
-- [Contributing](#Contributing)
-- [Authors](#authors)
-- [License](#License)
-
+* [terraform-aws-alb-single-listener](#terraform-aws-alb-single-listener)
+   * [Table of Content](#table-of-content)
+   * [Description](#description)
+   * [Examples](#examples)
+   * [Terraform Version](#terraform-version)
+   * [Requirements](#requirements)
+   * [Providers](#providers)
+   * [Modules](#modules)
+   * [Resources](#resources)
+   * [Inputs](#inputs)
+   * [Outputs](#outputs)
+   * [Contributing](#contributing)
+   * [Authors](#authors)
+   * [License](#license)
 
 ## Description
 A terraform module which provisions a DNS record that points to an Application LB with a single listener
@@ -35,12 +36,14 @@ A terraform module which provisions a DNS record that points to an Application L
 ## Terraform Version
 
 This module was created on 4/17/2018.
-The latest stable version of Terraform which this module tested working is Terraform 0.12.31 on 27/09/2021.
+The latest stable version of Terraform which this module tested working is Terraform 0.13.7 on 07/10/2021.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Requirements
 
-No requirements.
+| Name | Version |
+|------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.13 |
 
 ## Providers
 
@@ -52,8 +55,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_random_lb"></a> [random\_lb](#module\_random\_lb) | github.com/traveloka/terraform-aws-resource-naming.git | v0.19.1 |
-| <a name="module_random_tg"></a> [random\_tg](#module\_random\_tg) | github.com/traveloka/terraform-aws-resource-naming.git | v0.19.1 |
+| <a name="module_random_lb"></a> [random\_lb](#module\_random\_lb) | github.com/traveloka/terraform-aws-resource-naming.git | v0.20.0 |
+| <a name="module_random_tg"></a> [random\_tg](#module\_random\_tg) | github.com/traveloka/terraform-aws-resource-naming.git | v0.20.0 |
 
 ## Resources
 
@@ -80,15 +83,12 @@ No requirements.
 | <a name="input_lb_subnet_ids"></a> [lb\_subnet\_ids](#input\_lb\_subnet\_ids) | List of subnet IDs of the LB | `list(string)` | n/a | yes |
 | <a name="input_lb_tags"></a> [lb\_tags](#input\_lb\_tags) | The additional LB tags that will be merged over the default tags | `map(string)` | `{}` | no |
 | <a name="input_listener_certificate_arn"></a> [listener\_certificate\_arn](#input\_listener\_certificate\_arn) | The LB listener's certificate ARN | `string` | n/a | yes |
-| <a name="input_listener_conditions"></a> [listener\_conditions](#input\_listener\_conditions) | List of conditions (https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html#condition) for the listener rules. A rule can have either 1 or 2 conditions. The rule's order will be its priority, i.e. the first is the highest | `list(list(object({ field = string, values = list(string) })))` | `[]` | no |
 | <a name="input_listener_port"></a> [listener\_port](#input\_listener\_port) | The LB listener's port | `string` | `443` | no |
 | <a name="input_listener_protocol"></a> [listener\_protocol](#input\_listener\_protocol) | The LB listener's protocol | `string` | `"HTTPS"` | no |
-| <a name ="input_listener_rules"></a>  [listener\_rules](#input\_listener\_rules)| A map of listener rules for the LB: priority --> {target_group_arn:'', conditions:[]}. `target_group_arn:null` means the built-in target group | `list` | `[]` | no |
+| <a name="input_listener_rules"></a> [listener\_rules](#input\_listener\_rules) | A map of listener rules for the LB: priority --> {target\_group\_arn:'', conditions:[]}. 'target\_group\_arn:null' means the built-in target group | `map` | `{}` | no |
 | <a name="input_listener_ssl_policy"></a> [listener\_ssl\_policy](#input\_listener\_ssl\_policy) | The LB listener's SSL policy | `string` | `"ELBSecurityPolicy-2016-08"` | no |
-| <a name="input_listener_target_group_idx"></a> [listener\_target\_group\_idx](#input\_listener\_target\_group\_idx) | Indexes, starting from 0, of the `target_group_arns` variable that the listener rules will use when choosing target groups. '0' means the default target group | `list(string)` | `[]` | no |
 | <a name="input_product_domain"></a> [product\_domain](#input\_product\_domain) | Abbreviation of the product domain the created resources belong to | `string` | n/a | yes |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The service name that will be used in tags and resources default name | `string` | n/a | yes |
-| <a name="input_target_group_arns"></a> [target\_group\_arns](#input\_target\_group\_arns) | A list of target group arns, will be used by listener rules using `listener_target_group_idx` variable | `list(string)` | `[]` | no |
 | <a name="input_tg_deregistration_delay"></a> [tg\_deregistration\_delay](#input\_tg\_deregistration\_delay) | The default target group's deregistration delay | `string` | `300` | no |
 | <a name="input_tg_health_check"></a> [tg\_health\_check](#input\_tg\_health\_check) | The default target group's health check configuration, will be merged over the default (see locals.tf) | `map(string)` | `{}` | no |
 | <a name="input_tg_name"></a> [tg\_name](#input\_tg\_name) | The default target group's name, will override the default <service\_name>-default name | `string` | `""` | no |
@@ -99,6 +99,7 @@ No requirements.
 | <a name="input_tg_tags"></a> [tg\_tags](#input\_tg\_tags) | The additional Target Group tags that will be merged over the default tags | `map(string)` | `{}` | no |
 | <a name="input_tg_target_type"></a> [tg\_target\_type](#input\_tg\_target\_type) | The type of target that you must specify when registering targets with this target group. | `string` | `"instance"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The default target group's VPC | `string` | n/a | yes |
+
 ## Outputs
 
 | Name | Description |

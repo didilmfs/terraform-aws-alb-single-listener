@@ -97,7 +97,7 @@ resource "aws_lb_target_group" "default" {
   )
 }
 resource "aws_lb_listener_rule" "main" {
-  for_each = var.listener_rules
+  for_each     = var.listener_rules
   listener_arn = aws_lb_listener.main.arn
 
   priority = each.key
@@ -108,15 +108,15 @@ resource "aws_lb_listener_rule" "main" {
   }
 
   dynamic "condition" {
-  # each.value["conditions"] here contains a list of conditions, e.g.
-  # [{
-  #     "field"  = "host-header"
-  #     "values" = ["m.traveloka.com"]
-  #   },
-  #   {
-  #     "field"  = "path-pattern"
-  #     "values" = ["/frontend/"]
-  # }]
+    # each.value["conditions"] here contains a list of conditions, e.g.
+    # [{
+    #     "field"  = "host-header"
+    #     "values" = ["m.traveloka.com"]
+    #   },
+    #   {
+    #     "field"  = "path-pattern"
+    #     "values" = ["/frontend/"]
+    # }]
     for_each = each.value["conditions"]
     content {
       dynamic "host_header" {
